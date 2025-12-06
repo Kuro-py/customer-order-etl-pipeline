@@ -1,5 +1,32 @@
 Project: Customer & Orders ETL & Event-Driven Pipeline
 
+--Tasks
+--------------------------------------
+Task 1: Database Setup
+Use the Customer and Order CSV files to create corresponding tables in a database.
+
+Task 2: REST API
+Build a simple API with the following endpoints:
+
+An endpoint that returns Customer and Order data for all customers, with the ability to filter for active or archived customers.
+An endpoint that returns Customer and Order data for a single customer using a customer ID.
+An endpoint to create a new Order.
+
+Task 3: Scheduled Integration (ETL)
+Build an integration that runs on a schedule. It should:
+
+Call the API endpoint that returns all active customers.
+Transform the data by combining the firstname and surname fields into a single name field.
+Send each customer record individually to a target API that accepts only one customer per request.
+Log the HTTP response code received.
+Use https://postman-echo.com/post as the target API.
+
+Task 4: Event-Driven Integration
+Add functionality to the system to:
+
+Capture order creation events and send each event as a message to a simple queue.
+Process the queued messages and save each one as an individual text file.
+
 --Prerequisites
 --------------------------------------
 Python 3.9+ installed
@@ -10,37 +37,6 @@ Redis running locally on the default port (for Celery):
   
 Python packages to be installed:
 	pip install fastapi uvicorn sqlalchemy pandas requests celery redis
-
-
-Tasks :
-Task 1 
-Use the Customer and Order CSV files to create corresponding tables in a
-database.
-Task 2
-Build a simple API on top of this data. This API should provide 3 REST endpoints.
-The REST endpoints should be as follows:
-● One that returns Customer and Order data for all Customers. This endpoint
-should also allow you to query for all active or archived Customers.
-● Another that returns the same data for a single Customer using a Customer
-id.
-● Another that is a create Order endpoint.
-Task 3
-Build an Integration that could be run on a schedule, for example as an ETL job.
-This should call the first endpoint of your API above to:
-● Return the JSON payload for all active customers.
-● Then transform the data by concatenating “firstname” and “surname” fields
-into a single “name” field.
-● Then send all the data onwards to a target API that only accepts a payload
-with a single customer record.
-● Then log the returned HTTP Response Code.
-You can use https://postman-echo.com/post as the target API endpoint.
-Task 4
-Build a basic Event Driven Integration.
-● Add capability to your stack to capture created orders and send each create
-event as a single message to a Simple Queue based system.
-● Then add functionality to process these queued messages and save each one
-as an individual text file.
-● Then create some new orders and see the files being created.
 
 --Create DB and Load CSVs
 ----------------------------------------
